@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Predict Race</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/fontawesome.js"></script>
+  <script src="js/tailwindcss.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="js/main.js" defer></script>
+</head>
+<body class="relative bg-gray-900 text-gray-300">
+<div class="h-screen flex justify-center items-center relative">
+  <div class="absolute top-0 left-0 w-full flex justify-center items-center p-4  space-x-4 flex-col space-y-2">
+  <img src="img/ethnocan-logo.jpeg"
+  class="w-[70px] h-[70px] rounded-full border-2 border-blue-500 "
+  alt="">
+  <span class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600 italic">
+    Ethnocan
+  </span>
+  <span class="text-sm text-gray-400">Detect Country, Race By Image</span>
+</div>
+
+      <div class="w-[450px] bg-gray-800 shadow-lg rounded-lg p-8">
+        <h1 class="text-2xl font-bold 
+	  text-gray-400 mb-7 text-center w-full">
+		 <i class="fa-solid fa-user"></i> Scan
+	  </h1>
+	  <form id="image-predict-form">
+      <input
+      class="file:bg-[#212121] file:text-gray-400
+      mb-7 file:text-xl w-full border border-gray-700
+      text-gray-300
+      file:font-semibold
+      file:mr-3
+      file:border-none rounded-xl file:p-3 bg-black/40 
+      focus:ouline-none
+      cursor-pointer file:cursor-pointer
+      file:hover:bg-[#242424]
+      "
+      type="file" 
+      id="image-predict-input"
+      accept="image/jpeg" 
+      required/>
+          <button type="submit" 
+	    class="w-full bg-blue-600 text-white rounded-lg py-2 
+	    font-medium hover:bg-blue-700
+	    transition duration-200 ease-in-out">Predict</button>
+        </form>
+      </div>
+    </div>
+  </form>
+
+</body>
+</html>

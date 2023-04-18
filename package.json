@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "start": "TF_CPP_MIN_LOG_LEVEL=2  node ./api/server.js",
+    "devStart": "TF_CPP_MIN_LOG_LEVEL=2  nodemon ./api/server.js",
+    "collect": "node collect_images.js",
+    "convert_resize": "node convert_resize.js",
+    "train": "TF_CPP_MIN_LOG_LEVEL=2 node train.js",
+    "predict": "TF_CPP_MIN_LOG_LEVEL=2 node predict.js"
+  },
+  "dependencies": {
+    "@marsron/google-image": "^1.0.4",
+    "@tensorflow/tfjs": "^4.4.0",
+    "@tensorflow/tfjs-node": "^4.4.0",
+    "axios": "^1.3.5",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "image-type": "^4.0.0",
+    "jpeg-js": "^0.4.4",
+    "sharp": "^0.32.0",
+    "util": "^0.12.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}

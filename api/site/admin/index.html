@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ethnocan - Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../js/fontawesome.js"></script>
+  <script src="../js/tailwindcss.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+  <script src="../js/main.js" defer></script>
+  <style type="text/css" media="screen">
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #263238;
+}
+::-webkit-scrollbar-thumb {
+  background: #607D8B90;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #607D8B;
+}
+  </style>
+</head>
+<body class="text-gray-300">
+<div class="flex h-screen w-screen flex-col overflow-hidden">
+  
+  <div class="flex justify-between bg-gray-900 p-4">
+	<span class="w-full text-center">
+	  <span class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-pink-400 to-red-600 ">
+	  Ethnocan - Admin
+  </span>
+	</span>
+	<button class="text-xl font-semibold rounded-md px-3 py-2 bg-blue-600 hover:bg-blue-700 text-gray-200"
+		onclick="logout()"
+	  >
+	  Logout
+	</button>
+  </div>
+
+  <div class="bg-gray-900 w-full text-gray-200 ">
+    <div class="flex text-xl tab-btn font-semibold">
+      <button id="predict-tab" class="w-full  px-4 py-2  border-b-4 border-transparent  focus:outline-none "> <i class="fa-solid fa-chart-line"></i> Predict </button>
+      <button id="train-tab" class="w-full px-4 py-2  border-b-4 border-transparent  focus:outline-none "><i class="fa-solid fa-gear"></i> Train</button>
+      <button id="upload-tab" class="w-full px-4 py-2  border-b-4 border-transparent  focus:outline-none "><i class="fa-regular fa-image"></i> Upload Image</button>
+      <button id="view-tab" class="w-full px-4 py-2 border-b-4 border-transparent  focus:outline-none "> <i class="fa-solid fa-database"></i> View Dataset</button>
+    </div>
+  </div>
+
+  <div class="bg-gray-900 h-full text-gray-300">
+    <div id="predict" class="tab-content flex h-full justify-center items-center"> 
+	<div class="w-[450px] bg-gray-800 shadow-lg rounded-lg p-8">
+        <h1 class="text-2xl font-bold 
+	  text-gray-400 mb-7 text-center w-full">
+	   <i class="fa-solid fa-user"></i> Scan
+	</h1>
+	  <form id="image-predict-form">
+      <input
+      class="file:bg-[#212121] file:text-gray-400
+      mb-7 file:text-xl w-full border border-gray-700
+      text-gray-300
+      file:font-semibold
+      file:mr-3
+      file:border-none rounded-xl file:p-3 bg-black/40 
+      focus:ouline-none
+      cursor-pointer file:cursor-pointer
+      file:hover:bg-[#242424]
+      "
+      type="file" 
+      id="image-predict-input"
+      accept="image/jpeg" 
+      required/>
+          <button type="submit" 
+	    class="w-full bg-blue-600 text-white rounded-lg py-2 
+	    font-medium hover:bg-blue-700
+	    transition duration-200 ease-in-out">Predict</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="train" class="tab-content hidden flex h-full justify-center items-center flex-col">  
+	<button
+	 onclick="train(this)"
+	  class="text-xl bg-blue-700 text-gray-300 font-semibold rounded-md py-3 px-5 outline-none hover:bg-blue-600 mb-10">
+		Start Training
+	</button>
+	<p class="w-[600px] text-center text-gray-400 ">
+The model's performance during training will eventually determine how well it will work when it is eventually put into an application for the end-users. Please Do not refresh or close the page while the model is trained.
+	</p>
+    </div>
+
+
+    <div id="upload" class="tab-content hidden flex h-full justify-center items-center flex-col "> 
+	<div class="w-[450px] bg-gray-800 shadow-lg rounded-lg p-8">
+        <h1 class="text-2xl font-bold 
+	  text-gray-400 mb-7 text-center w-full">
+	   <i class="fa-solid fa-image"></i> Add Image 
+	</h1>
+      <form id="image-upload-form">
+	<select id="image-upload-class" class="w-full text-xl font-semibold bg-[#212121] mb-4 p-2 rounded-md cursor-pointer outline-none">
+	</select>
+      <input
+      class="file:bg-[#212121] file:text-gray-400
+      mb-7 file:text-xl w-full border border-gray-700
+      text-gray-300
+      file:font-semibold
+      file:mr-3
+      file:border-none rounded-xl file:p-3 bg-black/40 
+      focus:ouline-none
+      cursor-pointer file:cursor-pointer
+      file:hover:bg-[#242424]
+      "
+      type="file" 
+      id="image-upload-input"
+      accept="image/jpeg" 
+      required/>
+          <button type="submit" 
+	    class="w-full bg-blue-600 text-white rounded-lg py-2 
+	    font-medium hover:bg-blue-700
+	    transition duration-200 ease-in-out">Upload</button>
+        </form>
+      </div>
+    </div>
+
+    <div 
+      id="view" 
+      class="tab-content hidden p-10 flex w-full h-full"> 
+	
+	<div class="relative w-[30%] h-[750px] border-r-4 border-blue-500 bg-gray-800 rounded-tl-md rounded-bl-md overflow-y-auto">
+	
+	  <span class="sticky flex justify-center bg-gray-800 top-0 left-0 w-full p-2 border-b-2 border-blue-500 text-center font-bold text-xl">
+	  Class:&nbsp;<span id="total-class" class="text-blue-400"></span>
+	  </span>
+	
+	  <ul id="dir-list" class="mt-8 p-2 ">
+	  </ul>
+
+	</div>
+	
+	<div class="relative w-[20%] h-[750px] border-r-4 border-blue-500 bg-gray-800 rounded-tl-md rounded-bl-md overflow-y-auto">
+	  <span class="sticky flex justify-center bg-gray-800 top-0 left-0 w-full p-2 border-b-2 border-blue-500 text-center font-bold text-xl">
+	 	List:&nbsp;<span id="total-files" class="text-blue-400"></span>
+	  </span>
+
+	  <ul id="file-list" class="mt-8 p-2 ">
+	  </ul>
+
+	</div>
+	
+	<div class="relative w-[50%] h-[750px] bg-gray-800 rounded-tr-md rounded-br-md flex justify-center items-center">
+	  <span class="absolute top-0 left-0 w-full p-2 border-b-2 border-blue-500 text-center font-bold text-xl">
+	 	Image: 
+	  </span>
+
+	  <img id="view-image" 
+	       class="w-[300px] h-[300px] border-4 border-blue-500"
+	  src="" alt="Image View!"/>
+
+	</div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
